@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A call to bring back the stars to San Francisco through better lighting and dark sky initiatives." />
+    <title>where are the stars</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Skip link for accessibility -->
+    <!-- Page shell: sidebar nav + content -->
+    <div class="page">
+      <aside class="sidebar" role="navigation" aria-label="Section navigation">
+        <div class="brand">
+          <a class="brand__home" href="#">where are the stars</a>
+        </div>
+      </aside>
+
+      <main class="content" id="content">
+        <!-- Hero -->
+        <header class="hero" role="banner">
+          <h1 class="hero__title">where are the stars | san francisco</h1>
+
+          <!-- Optional meta row (authors/links placeholder, intentionally blank content) -->
+
+        <!-- Sections (no article text, just anchors + visual placeholders) --> 
+        <section id="stars" class="section">
+  <div class="section__body">
+    <p><strong>Humans have always seen the stars.</strong> They are our birthright, our compass, our reminder that the universe is vast and unexplored.</p>
+
+    <p><strong>But—where are the stars?</strong> They are hidden by our own doing. Light pollution over cities creates permanent, hazy skyglow. Light trespass adds to the veil. Streetlamps scatter light in the atmosphere and blot out the stars.</p>
+
+    <p><strong>We could begin to make it otherwise.</strong> Other places have succeeded on this path. We can do this, and do better.</p>
+
+    <p>Here are some ways:</p>
+    <ul>
+      <li><strong>Starting delta</strong>: Institute a sky brightness measurement program to measure sky quality over time. There are a variety of measurements including a Sky Quality Meter (SQM-L) survey, Bortle Scale interpretation, and low satellite imagery.</li>
+      <li><strong>Stars district</strong>: There are urban areas with established dark-sky ordinances. We could do this around the Presidio or Golden Gate Park. France has the "Réserve Internationale de Ciel Étoilé" (dark-sky reserves), Italy has shielded streetlights, and Japan has reduced glare zones.</li>
+      <li><strong>Light management</strong>: It is possible to deliberately control artificial illumination. Flagstaff and Tucson started in 1958. We could experiment with the intensity, spectrum, direction, and timing through shielding lights, amber lighting, zoning, permitting, downward-directed LEDs.</li>
+      <li><strong>Better technology</strong>: We don't want less light, just more stars. The dream is to invent better ways to light cities: why not use lights with shorter wavelengths, sensors for adaptive lighting, or materials in the sky that bend light back to the ground?</li>
+    </ul>
+
+    <p><strong>How are we to build the future if we can't see the stars?</strong> We don't know the best solution, but we know the stars are there. Look up.</p>
+
+    <blockquote><em>
+      "But poets have never grown used to stars; and it is their business to prevent anybody else ever growing used to them. And any man who reads for the first time the words, 'Night's candles are burnt out,' catches his breath and almost curses himself for having neglected to look rightly, or sufficiently frequently, at the grand and mysterious revolutions of night and day."
+      <br/>—GK Chesterton</em>
+    </blockquote>
+
+    <p style="margin-top: 32px; color: var(--muted);">Rach and Div</p>
+  </div>
+</section>
+
+<section id="signup" class="section">
+  <div class="signup-form">
+    <form id="emailForm" style="display: flex; gap: 12px; margin-bottom: 16px;">
+      <input 
+        type="email" 
+        id="emailInput" 
+        placeholder="your@email.com" 
+        required
+        style="flex: 1; padding: 12px 16px; border: 1px solid var(--divider); border-radius: 6px; font-family: inherit; font-size: 16px; background: var(--bg); color: var(--text);">
+      <button 
+        type="submit"
+        style="padding: 12px 24px; background: #4a148c; color: white; border: none; border-radius: 6px; font-family: inherit; font-size: 16px; font-weight: 500; cursor: pointer;">
+        u too?
+      </button>
+    </form>
+    <p id="signupCount" style="font-size: 18px; color: var(--text); margin: 0; font-weight: 500;">
+      <span id="count">0</span> emails want to see the stars
+    </p>
+  </div>
+</section>
+
+        <footer class="footer">
+          <div class="footer__inner">
+            <div class="footer__left">
+              <a class="footer__link" href="mailto:inbox@wherearethestars.com" style="color: #666;">inbox@wherearethestars.com</a>
+            </div>
+            <div class="footer__right">
+              <span style="color: var(--muted); font-size: 0.9rem;">© 2025</span>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      // Simple local storage counter with duplicate prevention
+      function loadCount() {
+        const count = localStorage.getItem('starCounter') || 0;
+        document.getElementById('count').textContent = count;
+      }
+
+      // Load count on page load
+      loadCount();
+
+      // Handle form submission
+      document.getElementById('emailForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('emailInput').value.trim().toLowerCase();
+        const button = this.querySelector('button');
+        const originalText = button.textContent;
+        
+        if (email) {
+          // Check if email already exists
+          const submittedEmails = JSON.parse(localStorage.getItem('submittedEmails') || '[]');
+          
+          if (submittedEmails.includes(email)) {
+            // Silently ignore duplicate emails
+            button.textContent = originalText;
+            button.disabled = false;
+            return;
+          }
+          
+          // Show loading state
+          button.textContent = 'Submitting...';
+          button.disabled = true;
+          
+          // Simulate a brief delay
+          setTimeout(() => {
+            // Get current count
+            const currentCount = parseInt(localStorage.getItem('starCounter') || 0);
+            const newCount = currentCount + 1;
+            
+            // Save to local storage
+            localStorage.setItem('starCounter', newCount);
+            
+            // Add email to submitted list
+            submittedEmails.push(email);
+            localStorage.setItem('submittedEmails', JSON.stringify(submittedEmails));
+            
+            // Update display
+            document.getElementById('count').textContent = newCount;
+            
+            // Clear form
+            document.getElementById('emailInput').value = '';
+            
+            // Show success message with shooting star
+            const countElement = document.getElementById('signupCount');
+            countElement.innerHTML = `<span id="count">${newCount}</span> emails want to see the stars <span style="color: var(--text);">✨</span>`;
+            
+            // Reset message after 3 seconds
+            setTimeout(() => {
+              countElement.innerHTML = `<span id="count">${newCount}</span> emails want to see the stars`;
+            }, 3000);
+            
+            // Reset button
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>

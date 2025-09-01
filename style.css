@@ -1,0 +1,146 @@
+/* --- Reset (light) --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* --- Typography & theme --- */
+:root{
+  --bg: #fff;
+  --text: #111;
+  --muted: #444;         /* paragraph color */
+  --divider: #e6e6e6;    /* thin rule */
+  --content-max: 720px;  /* article width */
+}
+
+/* Temporarily disable dark mode to keep light theme */
+/* @media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b0c0e; --text:#ececec; --muted:#b9b9b9; --divider:#24262a;
+  }
+} */
+
+html, body { height: 100%; background: var(--bg); color: var(--text); }
+
+/* Classic serif stack for the "paper" feel */
+body{
+  font-family:
+    "Iowan Old Style", "Palatino", "Palatino Linotype", "Book Antiqua",
+    Georgia, "Times New Roman", Times, serif;
+  line-height: 1.7;
+  letter-spacing: 0.005em;
+}
+
+/* --- Layout: single-column article --- */
+.page{
+  display: block;        /* kill grid */
+}
+.sidebar{
+  display: none;         /* hide TOC sidebar */
+}
+.content{
+  max-width: var(--content-max);
+  margin: 48px auto 80px;
+  padding: 0 24px;
+}
+
+/* --- Hero (title + subtitle + link) --- */
+.hero{
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 32px;
+}
+.hero__title{
+  margin: 0 0 14px 0;
+  font-weight: 700;
+  line-height: 1.06;
+  /* big, stately title */
+  font-size: clamp(28px, 4.5vw, 48px);
+  letter-spacing: -0.01em;
+}
+
+.hero__lead{
+  margin: 0 0 18px 0;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.45;
+  font-size: clamp(20px, 2.6vw, 28px);
+}
+.hero a { font-weight: 600; }
+
+/* --- Sections --- */
+.section{
+  padding: 22px 0 8px;
+}
+.section__title{
+  margin: 0 0 12px;
+  font-weight: 700;
+  font-size: clamp(20px, 2.8vw, 28px);
+  line-height: 1.25;
+}
+.section__body{
+  color: var(--muted);
+  /* If you're using placeholders instead of text, make them look like paragraphs */
+}
+.section__body.placeholder{
+  display: grid;
+  gap: 12px;
+  /* 6 faux lines */
+  grid-template-rows: repeat(6, 1.1em);
+}
+.section__body.placeholder::before,
+.section__body.placeholder::after{
+  content: "";
+}
+.section__body.placeholder > * { display: none; }
+.section__body.placeholder {
+  background:
+    linear-gradient(0deg, transparent 0, transparent),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.08) 0,
+      rgba(0,0,0,0.08) 0.6em,
+      transparent 0.6em,
+      transparent 1.6em
+    );
+  border-radius: 6px;
+  padding: 8px 0;
+  opacity: .35;
+}
+
+/* --- Footer --- */
+.footer{
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--divider);
+  color: var(--muted);
+}
+.footer__inner{ display: flex; justify-content: space-between; gap: 16px; }
+.footer__brand, .footer__link{ font-weight: 500; text-decoration: none; }
+
+/* --- Small screens --- */
+@media (max-width: 600px){
+  .content{ margin: 32px auto 64px; padding: 0 16px; }
+  .hero{ padding-bottom: 24px; margin-bottom: 28px; }
+}
+
+/* --- Embed styles --- */
+.embed-wrap{
+  margin: 18px 0 6px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: transparent;               /* transparent background for light mode */
+  box-shadow: 0 6px 24px rgba(0,0,0,.08);
+}
+.embed-wrap iframe{
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;               /* responsive height without JS */
+  border: 0;
+}
+.embed-note{
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
